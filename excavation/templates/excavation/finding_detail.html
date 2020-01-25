@@ -1,0 +1,28 @@
+{% extends "details.html" %}
+{% load static %}
+{% block content %}
+<div class="row d-flex align-items-stretch no-gutters" style="min-height:500px;">
+        <div class="col-md-6 p-4 p-md-5 bg-light style="overflow-wrap: break-word;">
+            <div class="text bg-light p-4">
+                  <h2> Finding: {{ object.name }}</h2>
+                  <h6> Area: {{ object.area }}</h6>
+                  <h6> Trench: {{ object.trench }}</h6>
+                  <h6> Building: {{ object.building }}</h6>
+                  <h6> Object: {{ object.object }}</h6>
+                  <h6> Lat: {{ object.latitude }}<br>Lon: {{ object.longitude }}</h6>
+                  <h6> Archaeological date: {{ object.archaeological_date }}</h6>
+                  <h6> Width: {{ object.width }} m</h6>
+                  <h6> Height: {{ object.height }} m</h6>
+                  <h6> Depth: {{ object.depth }} m</h6>
+                  {{ object.description }}
+            </div>
+
+        </div>
+
+        <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(); ">
+            <img src="{{object.images.url}}" style="max-width:600px;max-height:600px;margin-top:20%;"/>
+            </div>
+        </div>
+</div>
+{% endblock %}

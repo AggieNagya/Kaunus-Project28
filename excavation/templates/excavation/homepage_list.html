@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% for homepage in homepage_list %}
+          <div class="col-md-12 wrap-about py-5 pr-md-4 ftco-animate">
+            <h2 class="mb-4">{{homepage.header}}</h2>
+            <p> {{homepage.description}} </p>
+          </div>
+    {% endfor %}
+{% endblock %}

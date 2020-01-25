@@ -1,0 +1,49 @@
+{% extends "base_generic.html" %}
+ <--! Added the search below which needs to be aligned -->
+{% load i18n %}
+{% block banner %}
+        <div class="col-md-12" style="margin-top:2%;margin-bottom:2%;">
+                  <form method='GET', action="">
+                      <div class="row">
+                          <div class="col-xs-10 col-md-11">
+                              <div class="form-group">
+                                  <input type="text" name="keyword" placeholder="Enter Search Term" value='{{request.GET.keyword}}'class="form-control" style="width:50%;float:right;" />
+                              </div>
+                          </div>
+                          <div class="col-xs-2 col-md-1">
+                              <div class="form-group">
+                                  <input type="submit" name="search" value="Search" class="btn btn-success" style="border-radius:10;height:50px;float:right"/>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+{% if trench_list %}
+  {% load static %}
+  {% static "images" as base1Url %}
+
+  {% for trench in trench_list %}  <!--{% static 'images/bg_3.jpg' %}-->
+  <div class="col-md-6 course d-lg-flex ftco-animate">
+      <!--{{baseUrl}}/{{'bg_3.jpg'}} Note for the jpg we will pass in as a variable to change
+          between different picture -->
+    <!--div class="img" style="background-image: url({{base1Url}}/{{'bg_3.jpg'}});"></div-->
+      <div class="img" style="background-image: url({{trench.images.url}});"></div>
+      <div class="text bg-light p-4">
+
+          <!-- We are using the get absolute url for trench which we receive from the database querying -->
+      <h3><a href="{{ trench.get_absolute_url }}">{{ trench.name }}</a></h3>
+      <p class="subheading"><span>{{ trench.latitude }}, {{ trench.longitude }}</span></p>
+      <p> {{trench.short_description}}</p>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+<div class="col-md-6">
+  <p>There are no trenches.</p>
+</div>
+{% endif %}
+{% endblock %}

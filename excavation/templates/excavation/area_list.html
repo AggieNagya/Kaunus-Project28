@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+ <--! Added the search below which needs to be aligned -->
+{% load i18n %}
+{% block banner %}
+<div class="col-md-12" style="margin-top:2%;margin-bottom:2%;">
+          <form method='GET', action="">
+              <div class="row">
+                  <div class="col-xs-10 col-md-11">
+                      <div class="form-group">
+                          <input type="text" name="keyword" placeholder="Enter Search Term" value='{{request.GET.keyword}}'class="form-control" style="width:50%;float:right;" />
+                      </div>
+                  </div>
+                  <div class="col-xs-2 col-md-1">
+                      <div class="form-group">
+                          <input type="submit" name="search" value="Search" class="btn btn-success" style="border-radius:10;height:50px;float:right"/>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if area_list %}
+
+  {% for area in area_list %}
+  <div class="col-md-6 course d-lg-flex ftco-animate">
+      <div class="img" style="background-image: url({{area.images.url}});"></div>
+      <div class="text bg-light p-4">
+      <h3><a href="{{ area.get_absolute_url }}">{{ area.name }}</a></h3>
+      <p> {{area.short_description}}</p>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+<div class="col-md-6">
+  <p>There are no areas.</p>
+</div>
+{% endif %}
+{% endblock %}

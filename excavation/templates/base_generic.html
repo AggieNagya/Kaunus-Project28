@@ -1,0 +1,168 @@
+<!-- vim:set ts=2 sts=2 sw=2 et: -->
+{% load static i18n%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block title %}<title>Excavation of Caunus</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+-->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+      <div class="container d-flex align-items-center">
+	   {% load static %}
+       <img src="{% static 'images/caunuslogo.jpg' %}" alt="Caunus" style="width:320px;height:100px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link pl-0">Home</a></li>
+            <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
+            <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            History & Monuments
+          </a>
+          <ul class="dropdown-menu">
+		      <li><a href="{% url 'topography' %}">Topography</a></li>
+            <li><a href="{% url 'history' %}">History</a></li>
+            <li><a href="{% url 'monuments' %}">Monuments</a></li>
+          </ul>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            Catalogue
+            </a>
+            <ul class="dropdown-menu">
+  		      <li><a href="{% url 'areas' %}">Area</a></li>
+              <li><a href="{% url 'trenches' %}">Trenches</a></li>
+              <li><a href="{% url 'buildings' %}">Buildings</a></li>
+              <li><a href="{% url 'findings' %}">Finding</a></li>
+              <li><a href="{% url 'finds' %}">Find</a></li>
+            </ul>
+              <li class="nav-item"><a href="{% url 'logout' %}?next={{ request.path }}" class="nav-link">Logout</a></li>
+            {% else %}
+              <li class="nav-item"><a href="{% url 'login' %}?next={{ request.path }}" class="nav-link">Login</a></li>
+			  <div class="container d-flex align-items-center">
+       <!-- <a class="navbar-brand" href="index.html"><IMG SRC="images\caunuslogo.jpg" ALT="Caunus" WIDTH=258 HEIGHT=60></a>-->
+	   {% load static %}
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+
+             <!-- <li class="nav-item"><a href="signup.html" class="nav-link">Sign Up</a></li>-->
+
+            {% endif %}
+          </ul>
+
+       <img src="{% static 'images/kulturlogo.jpg' %}" alt="Caunus Culture" style="width:105px;height:100px;" align="right">
+        </div>
+      </div>
+    </nav>
+    <!-- END nav -->
+
+    {% block banner %}
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image:url({% static 'images/kaunus.jpg' %});">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-8 text-center ftco-animate">
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+
+    <section class="ftco-section ftco-no-pt ftc-no-pb">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 order-md-last wrap-about py-5 wrap-about bg-light">
+            {% block headline %}
+            {% endblock %}
+          </div>
+          {% block content %}{% endblock %}
+        </div>
+        {% block pagination %}
+          {% if is_paginated %}
+          <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}"> Previous &nbsp; </a>
+                  </li>
+                  {% endif %}
+                    <li>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
+                  {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}
+                    {% if query %}&keyword={{query}}{% endif %}"> &nbsp; Next </a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+          </div>
+          {% endif %}
+        {% endblock %}
+      </div>
+    </section>
+
+
+  <footer class="ftco-footer ftco-bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script>  <i class="icon-heart" aria-hidden="true"></i>
+            <a href="https://colorlib.com" target="_blank"></a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static 'js/scrollax.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqdwNFIWloMvf6-QXt0XB6TAlfwROLxGQ&callback=initMap">
+    </script>
+
+  </body>
+</html>

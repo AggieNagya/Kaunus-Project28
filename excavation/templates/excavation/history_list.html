@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% for history in history_list %}
+          <div class="col-md-12 wrap-about py-5 pr-md-4 ftco-animate">
+            <p> {{history.description}} </p>
+          </div>
+    {% endfor %}
+{% endblock %}
